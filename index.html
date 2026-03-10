@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Expense Tracker</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="container">
+        <header class="app-header">
+            <div class="header-titles">
+                <h1><i class="fa-solid fa-wallet"></i> Personal Expense Tracker</h1>
+                <p>Track your finances effortlessly</p>
+            </div>
+            <div class="month-filter-container">
+                <select id="month-filter" class="month-select">
+                    <option value="all">All Time</option>
+                </select>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Left Column: Cards & Form -->
+            <div class="left-column">
+                <!-- Balance Card -->
+                <div class="glass-card balance-card">
+                    <h2>Available Balance</h2>
+                    <h1 id="balance">$0.00</h1>
+                    <div class="income-expense">
+                        <div>
+                            <h4>Income</h4>
+                            <p id="money-plus" class="money plus">+$0.00</p>
+                        </div>
+                        <div class="divider"></div>
+                        <div>
+                            <h4>Expense</h4>
+                            <p id="money-minus" class="money minus">-$0.00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Transaction Form -->
+                <div class="glass-card add-transaction">
+                    <h3>Add New Transaction</h3>
+                    <form id="form">
+                        <div class="form-control">
+                            <label for="text">Description</label>
+                            <input type="text" id="text" placeholder="e.g. Salary, Groceries..." required
+                                autocomplete="off" />
+                        </div>
+                        <div class="form-control">
+                            <label for="amount">Amount <span class="tooltip"><i
+                                        class="fa-solid fa-circle-info"></i><span class="tooltiptext">Positive for
+                                        income, negative for expense</span></span></label>
+                            <input type="number" id="amount" placeholder="e.g. -50 or 2000" required step="0.01" />
+                        </div>
+                        <div class="form-control type-selector">
+                            <button type="button" id="btn-expense" class="type-btn active">Expense</button>
+                            <button type="button" id="btn-income" class="type-btn">Income</button>
+                        </div>
+                        <button class="btn" type="submit">Add Transaction <i class="fa-solid fa-plus"></i></button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Center Column: Chart & History -->
+            <div class="right-column">
+                <!-- Chart Card -->
+                <div class="glass-card chart-card">
+                    <h3>Financial Overview</h3>
+                    <div class="chart-container">
+                        <canvas id="expenseChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Transaction History -->
+                <div class="glass-card history-card">
+                    <h3>Recent Transactions</h3>
+                    <ul id="list" class="list">
+                        <!-- Transactions will be inserted here dynamically -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Column: Calculator -->
+            <div class="calc-column">
+                <div class="glass-card calculator-card">
+                    <h3>Quick Calculator</h3>
+                    <div class="calc-display">
+                        <input type="text" id="calc-input" value="0" readonly />
+                    </div>
+                    <div class="calc-buttons">
+                        <button type="button" class="calc-btn operator" onclick="calcAction('clear')">C</button>
+                        <button type="button" class="calc-btn operator" onclick="calcAction('delete')">DEL</button>
+                        <button type="button" class="calc-btn operator" onclick="calcAction('%')">%</button>
+                        <button type="button" class="calc-btn operator" onclick="calcAction('/')">÷</button>
+
+                        <button type="button" class="calc-btn" onclick="calcAction('7')">7</button>
+                        <button type="button" class="calc-btn" onclick="calcAction('8')">8</button>
+                        <button type="button" class="calc-btn" onclick="calcAction('9')">9</button>
+                        <button type="button" class="calc-btn operator" onclick="calcAction('*')">×</button>
+
+                        <button type="button" class="calc-btn" onclick="calcAction('4')">4</button>
+                        <button type="button" class="calc-btn" onclick="calcAction('5')">5</button>
+                        <button type="button" class="calc-btn" onclick="calcAction('6')">6</button>
+                        <button type="button" class="calc-btn operator" onclick="calcAction('-')">-</button>
+
+                        <button type="button" class="calc-btn" onclick="calcAction('1')">1</button>
+                        <button type="button" class="calc-btn" onclick="calcAction('2')">2</button>
+                        <button type="button" class="calc-btn" onclick="calcAction('3')">3</button>
+                        <button type="button" class="calc-btn operator" onclick="calcAction('+')">+</button>
+
+                        <button type="button" class="calc-btn" onclick="calcAction('0')">0</button>
+                        <button type="button" class="calc-btn" onclick="calcAction('00')">00</button>
+                        <button type="button" class="calc-btn" onclick="calcAction('.')">.</button>
+                        <button type="button" class="calc-btn operator equal" onclick="calcAction('=')">=</button>
+                    </div>
+                    <button type="button" class="btn calc-use-btn" onclick="useCalcAmount()">Use Amount <i
+                            class="fa-solid fa-arrow-left"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

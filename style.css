@@ -1,0 +1,625 @@
+:root {
+    --bg-color: #0d1117;
+    --text-primary: #ffffff;
+    --text-secondary: #a3b3cc;
+    --card-bg: rgba(22, 27, 34, 0.6);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --primary-color: #5b42f3;
+    --primary-hover: #6d55ff;
+    --success-color: #2ea043;
+    --danger-color: #f85149;
+    --blob-1: #5b42f3;
+    --blob-2: #f85149;
+    --blob-3: #2ea043;
+    --font-family: 'Outfit', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+    padding: 2rem;
+}
+
+/* Background Blobs for Visual Aesthetics */
+.background-blobs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    filter: blur(100px);
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: float 20s infinite ease-in-out;
+}
+
+.blob-1 {
+    width: 400px;
+    height: 400px;
+    background-color: var(--blob-1);
+    top: -100px;
+    left: -100px;
+}
+
+.blob-2 {
+    width: 300px;
+    height: 300px;
+    background-color: var(--blob-2);
+    bottom: -50px;
+    right: -50px;
+    animation-delay: -5s;
+}
+
+.blob-3 {
+    width: 250px;
+    height: 250px;
+    background-color: var(--blob-3);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: -10s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+        transform: translate(30px, -50px) scale(1.1);
+    }
+
+    66% {
+        transform: translate(-20px, 20px) scale(0.9);
+    }
+}
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 1400px;
+    z-index: 1;
+}
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 600px) {
+    .app-header {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}
+
+.header-titles {
+    text-align: left;
+}
+
+@media (max-width: 600px) {
+    .header-titles {
+        text-align: center;
+    }
+}
+
+.app-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff, #a3b3cc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.app-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+/* Month Filter */
+.month-select {
+    padding: 0.8rem 1.2rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    backdrop-filter: blur(16px);
+    transition: all 0.3s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+}
+
+.month-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(91, 66, 243, 0.2);
+}
+
+.month-select option {
+    background: var(--bg-color);
+    color: var(--text-primary);
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 1100px) {
+    .main-content {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .calc-column {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 900px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .calc-column {
+        grid-column: span 1;
+    }
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+}
+
+.glass-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--card-border);
+    padding-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+/* Balance Card Specifics */
+.balance-card {
+    background: linear-gradient(135deg, rgba(91, 66, 243, 0.2), rgba(22, 27, 34, 0.8));
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.balance-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.balance-card:hover::before {
+    opacity: 1;
+}
+
+.balance-card h2 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.balance-card h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.income-expense {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+}
+
+.income-expense div {
+    flex: 1;
+}
+
+.income-expense h4 {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.income-expense p {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.money.plus {
+    color: var(--success-color);
+}
+
+.money.minus {
+    color: var(--danger-color);
+}
+
+.divider {
+    width: 1px;
+    background-color: var(--card-border);
+    margin: 0 1rem;
+}
+
+/* Form Styles */
+.form-control {
+    margin-bottom: 1.5rem;
+}
+
+.form-control label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.form-control input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(91, 66, 243, 0.2);
+}
+
+/* Tooltip */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 5px;
+    color: var(--text-secondary);
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.8rem;
+    font-weight: normal;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Type Selector Buttons */
+.type-selector {
+    display: flex;
+    gap: 1rem;
+}
+
+.type-btn {
+    flex: 1;
+    padding: 0.8rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.type-btn.active#btn-expense {
+    background: rgba(248, 81, 73, 0.1);
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+}
+
+.type-btn.active#btn-income {
+    background: rgba(46, 160, 67, 0.1);
+    border-color: var(--success-color);
+    color: var(--success-color);
+}
+
+.btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(91, 66, 243, 0.4);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Chart Area */
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+/* History List */
+.history-card {
+    margin-top: 2rem;
+}
+
+.list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-height: 280px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* Custom Scrollbar for list */
+.list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.list::-webkit-scrollbar-thumb {
+    background: var(--card-border);
+    border-radius: 10px;
+}
+
+.list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.list li {
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+    transition: all 0.3s ease;
+}
+
+.list li.plus {
+    border-left: 5px solid var(--success-color);
+}
+
+.list li.minus {
+    border-left: 5px solid var(--danger-color);
+}
+
+.list li:hover {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.list li .delete-btn {
+    cursor: pointer;
+    background: var(--danger-color);
+    color: #fff;
+    border: 0;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(150%, -50%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.list li:hover .delete-btn {
+    opacity: 1;
+    transform: translate(30%, -50%);
+}
+
+.list li .delete-btn:hover {
+    background: #ff3333;
+    transform: translate(30%, -50%) scale(1.1);
+}
+
+.transaction-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.transaction-desc {
+    font-weight: 500;
+}
+
+.transaction-date {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 5px;
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 2rem 0;
+    font-style: italic;
+}
+
+/* Calculator Styles */
+.calculator-card h3 {
+    text-align: center;
+}
+
+.calc-display {
+    margin-bottom: 1.5rem;
+}
+
+.calc-display input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 2rem;
+    text-align: right;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.calc-display input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(91, 66, 243, 0.2);
+}
+
+.calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.calc-btn {
+    padding: 1rem 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.calc-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.calc-btn:active {
+    transform: translateY(0);
+}
+
+.calc-btn.operator {
+    background: rgba(91, 66, 243, 0.15);
+    color: #a3b3cc;
+}
+
+.calc-btn.operator:hover {
+    background: rgba(91, 66, 243, 0.3);
+}
+
+.calc-btn.equal {
+    background: var(--primary-color);
+    color: white;
+}
+
+.calc-btn.equal:hover {
+    background: var(--primary-hover);
+}
+
+.calc-use-btn {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
