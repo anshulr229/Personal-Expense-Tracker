@@ -14,23 +14,45 @@
     --font-family: 'Outfit', sans-serif;
     --input-bg: rgba(0, 0, 0, 0.2);
     --header-gradient: linear-gradient(135deg, #fff, #a3b3cc);
+    --calc-display-bg: rgba(0, 0, 0, 0.3);
+    --calc-btn-bg: rgba(255, 255, 255, 0.05);
+    --calc-btn-hover: rgba(255, 255, 255, 0.15);
+    --calc-operator-bg: rgba(91, 66, 243, 0.15);
+    --calc-operator-text: #a3b3cc;
+    --income-expense-bg: rgba(0, 0, 0, 0.2);
+    --balance-card-gradient: linear-gradient(135deg, rgba(91, 66, 243, 0.2), rgba(22, 27, 34, 0.8));
+    --list-item-hover: rgba(255, 255, 255, 0.05);
+    --tooltip-bg: #333;
+    --tooltip-text: #fff;
+    --select-icon: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
 }
 
 [data-theme="light"] {
-    --bg-color: #f0f2f5;
-    --text-primary: #1c1e21;
-    --text-secondary: #65676b;
-    --card-bg: rgba(255, 255, 255, 0.7);
-    --card-border: rgba(0, 0, 0, 0.1);
-    --primary-color: #5b42f3;
-    --primary-hover: #6d55ff;
-    --success-color: #28a745;
-    --danger-color: #dc3545;
-    --blob-1: #5b42f3;
-    --blob-2: #f85149;
-    --blob-3: #2ea043;
-    --input-bg: rgba(255, 255, 255, 0.8);
-    --header-gradient: linear-gradient(135deg, #1c1e21, #5b42f3);
+    --bg-color: #f8f9fa;
+    --text-primary: #1a1a1b;
+    --text-secondary: #4a4a4b;
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --card-border: rgba(0, 0, 0, 0.08);
+    --primary-color: #4834d4;
+    --primary-hover: #686de0;
+    --success-color: #22863a;
+    --danger-color: #cb2431;
+    --blob-1: rgba(72, 52, 212, 0.2);
+    --blob-2: rgba(203, 36, 49, 0.2);
+    --blob-3: rgba(34, 134, 58, 0.2);
+    --input-bg: #ffffff;
+    --header-gradient: linear-gradient(135deg, #1a1a1b, #4834d4);
+    --calc-display-bg: #f1f3f5;
+    --calc-btn-bg: #ffffff;
+    --calc-btn-hover: #e9ecef;
+    --calc-operator-bg: rgba(72, 52, 212, 0.08);
+    --calc-operator-text: #4834d4;
+    --income-expense-bg: #f1f3f5;
+    --balance-card-gradient: linear-gradient(135deg, rgba(72, 52, 212, 0.1), rgba(255, 255, 255, 1));
+    --list-item-hover: #f1f3f5;
+    --tooltip-bg: #1a1a1b;
+    --tooltip-text: #ffffff;
+    --select-icon: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1a1b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
 }
 
 * {
@@ -242,7 +264,7 @@ body {
     backdrop-filter: blur(16px);
     transition: all 0.3s ease;
     appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-image: var(--select-icon);
     background-repeat: no-repeat;
     background-position: right 1rem center;
     background-size: 1em;
@@ -313,7 +335,7 @@ body {
 
 /* Balance Card Specifics */
 .balance-card {
-    background: linear-gradient(135deg, rgba(91, 66, 243, 0.2), rgba(22, 27, 34, 0.8));
+    background: var(--balance-card-gradient);
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -353,7 +375,7 @@ body {
 .income-expense {
     display: flex;
     justify-content: space-between;
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--income-expense-bg);
     border-radius: 16px;
     padding: 1.5rem;
 }
@@ -430,8 +452,8 @@ body {
 .tooltip .tooltiptext {
     visibility: hidden;
     width: 200px;
-    background-color: #333;
-    color: #fff;
+    background-color: var(--tooltip-bg);
+    color: var(--tooltip-text);
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
@@ -571,7 +593,7 @@ body {
 }
 
 .list li:hover {
-    background: rgba(0, 0, 0, 0.4);
+    background: var(--list-item-hover);
 }
 
 .list li .delete-btn {
@@ -642,7 +664,7 @@ body {
     padding: 1rem;
     font-size: 2rem;
     text-align: right;
-    background: rgba(0, 0, 0, 0.3);
+    background: var(--calc-display-bg);
     border: 1px solid var(--card-border);
     border-radius: 12px;
     color: var(--text-primary);
@@ -669,7 +691,7 @@ body {
     font-weight: 500;
     font-family: inherit;
     color: var(--text-primary);
-    background: var(--input-bg);
+    background: var(--calc-btn-bg);
     border: 1px solid var(--card-border);
     border-radius: 8px;
     cursor: pointer;
@@ -677,7 +699,7 @@ body {
 }
 
 .calc-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--calc-btn-hover);
     transform: translateY(-2px);
 }
 
@@ -686,8 +708,8 @@ body {
 }
 
 .calc-btn.operator {
-    background: rgba(91, 66, 243, 0.15);
-    color: #a3b3cc;
+    background: var(--calc-operator-bg);
+    color: var(--calc-operator-text);
 }
 
 .calc-btn.operator:hover {
