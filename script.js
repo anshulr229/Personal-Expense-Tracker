@@ -321,7 +321,7 @@ function updateChart(filteredTransactions) {
                     '#2ea043', // success-color
                     '#f85149'  // danger-color
                 ],
-                borderColor: '#161b22', // Match card bg
+                borderColor: isDark ? '#161b22' : '#ffffff', 
                 borderWidth: 4,
                 hoverOffset: 4
             }]
@@ -340,7 +340,11 @@ function updateChart(filteredTransactions) {
                     }
                 },
                 tooltip: {
-                    backgroundColor: 'rgba(22, 27, 34, 0.9)',
+                    backgroundColor: isDark ? 'rgba(22, 27, 34, 0.9)' : 'rgba(255, 255, 255, 0.9)',
+                    titleColor: isDark ? '#ffffff' : '#1a1a1b',
+                    bodyColor: isDark ? '#ffffff' : '#1a1a1b',
+                    borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+                    borderWidth: 1,
                     titleFont: { size: 14, family: "'Outfit', sans-serif" },
                     bodyFont: { size: 14, family: "'Outfit', sans-serif" },
                     padding: 12,
