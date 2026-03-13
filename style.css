@@ -12,6 +12,25 @@
     --blob-2: #f85149;
     --blob-3: #2ea043;
     --font-family: 'Outfit', sans-serif;
+    --input-bg: rgba(0, 0, 0, 0.2);
+    --header-gradient: linear-gradient(135deg, #fff, #a3b3cc);
+}
+
+[data-theme="light"] {
+    --bg-color: #f0f2f5;
+    --text-primary: #1c1e21;
+    --text-secondary: #65676b;
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --card-border: rgba(0, 0, 0, 0.1);
+    --primary-color: #5b42f3;
+    --primary-hover: #6d55ff;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --blob-1: #5b42f3;
+    --blob-2: #f85149;
+    --blob-3: #2ea043;
+    --input-bg: rgba(255, 255, 255, 0.8);
+    --header-gradient: linear-gradient(135deg, #1c1e21, #5b42f3);
 }
 
 * {
@@ -129,7 +148,7 @@ body {
 .app-header h1 {
     font-size: 2.5rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #fff, #a3b3cc);
+    background: var(--header-gradient);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -139,6 +158,74 @@ body {
 .app-header p {
     color: var(--text-secondary);
     font-size: 1.1rem;
+}
+
+/* Theme Toggle */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.theme-toggle {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(16px);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.05);
+    background: var(--card-border);
+}
+
+[data-theme="light"] .fa-sun {
+    display: none;
+}
+
+[data-theme="dark"] .fa-moon {
+    display: none;
+}
+
+/* Search Input */
+.search-container {
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.search-container i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.8rem 1rem 0.8rem 2.8rem;
+    background: var(--input-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(91, 66, 243, 0.2);
 }
 
 /* Month Filter */
@@ -316,7 +403,7 @@ body {
 .form-control input {
     width: 100%;
     padding: 0.8rem 1rem;
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--input-bg);
     border: 1px solid var(--card-border);
     border-radius: 12px;
     color: var(--text-primary);
@@ -373,7 +460,7 @@ body {
 .type-btn {
     flex: 1;
     padding: 0.8rem;
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--input-bg);
     border: 1px solid var(--card-border);
     border-radius: 12px;
     color: var(--text-secondary);
@@ -463,7 +550,7 @@ body {
 }
 
 .list li {
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--input-bg);
     color: var(--text-primary);
     display: flex;
     justify-content: space-between;
@@ -582,7 +669,7 @@ body {
     font-weight: 500;
     font-family: inherit;
     color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--input-bg);
     border: 1px solid var(--card-border);
     border-radius: 8px;
     cursor: pointer;
