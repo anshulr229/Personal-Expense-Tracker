@@ -8,8 +8,11 @@ const amount = document.getElementById('amount');
 const btnExpense = document.getElementById('btn-expense');
 const btnIncome = document.getElementById('btn-income');
 const monthFilter = document.getElementById('month-filter');
+const searchInput = document.getElementById('search');
+const themeToggle = document.getElementById('theme-toggle');
 
 let currentMonthFilter = 'all';
+let currentSearchTerm = '';
 
 // Extract Month and Year from date string
 function getMonthYear(dateString) {
@@ -58,12 +61,25 @@ monthFilter.addEventListener('change', (e) => {
     updateDOM();
 });
 
+// Handle Search Input
+searchInput.addEventListener('input', (e) => {
+    currentSearchTerm = e.target.value.toLowerCase();
+    updateDOM();
+});
+
 // Get Filtered Transactions
 function getFilteredTransactions() {
-    if (currentMonthFilter === 'all') {
-        return transactions;
+    let filtered = transactions;
+
+    if (currentMonthFilter !== 'all') {
+        filtered = filtered.filter(t => getMonthYear(t.date) === currentMonthFilter);
     }
-    return transactions.filter(t => getMonthYear(t.date) === currentMonthFilter);
+
+    if (currentSearchTerm) {
+        filtered = filtered.filter(t => t.text.toLowerCase().includes(currentSearchTerm));
+    }
+
+    return filtered;
 }
 
 // Update entire DOM based on filtered transactions
@@ -233,9 +249,24 @@ function updateLocalStorage() {
 
 // Init app
 function init() {
+    initTheme();
     populateMonthFilter();
     updateDOM();
 }
+
+// Theme Logic
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.body.setAttribute('data-theme', savedTheme);
+}
+
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateDOM(); // Refresh chart and values with new theme colors
+});
 
 // Chart.js Setup
 function updateChart(filteredTransactions) {
@@ -245,8 +276,9 @@ function updateChart(filteredTransactions) {
     const income = amounts.filter(item => item > 0).reduce((acc, item) => (acc += item), 0);
     const expense = amounts.filter(item => item < 0).reduce((acc, item) => (acc += item), 0) * -1;
 
-    // Use Chart.js defaults for darker theme
-    Chart.defaults.color = '#a3b3cc';
+    // Use theme-aware colors for Chart.js
+    const isDark = document.body.getAttribute('data-theme') === 'dark';
+    Chart.defaults.color = isDark ? '#a3b3cc' : '#65676b';
     Chart.defaults.font.family = "'Outfit', sans-serif";
 
     if (myChart) {
