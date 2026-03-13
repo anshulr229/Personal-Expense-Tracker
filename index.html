@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body data-theme="dark">
     <div class="background-blobs">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
@@ -30,10 +30,16 @@
                 <h1><i class="fa-solid fa-wallet"></i> Personal Expense Tracker</h1>
                 <p>Track your finances effortlessly</p>
             </div>
-            <div class="month-filter-container">
-                <select id="month-filter" class="month-select">
-                    <option value="all">All Time</option>
-                </select>
+            <div class="header-actions">
+                <div class="month-filter-container">
+                    <select id="month-filter" class="month-select">
+                        <option value="all">All Time</option>
+                    </select>
+                </div>
+                <button id="theme-toggle" class="theme-toggle">
+                    <i class="fa-solid fa-sun"></i>
+                    <i class="fa-solid fa-moon"></i>
+                </button>
             </div>
         </header>
 
@@ -94,6 +100,11 @@
                 <!-- Transaction History -->
                 <div class="glass-card history-card">
                     <h3>Recent Transactions</h3>
+                    <div class="search-container">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="search" class="search-input" placeholder="Search transactions..."
+                            autocomplete="off" />
+                    </div>
                     <ul id="list" class="list">
                         <!-- Transactions will be inserted here dynamically -->
                     </ul>
